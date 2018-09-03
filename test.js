@@ -2,20 +2,34 @@
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
 }
+//Object to store player data
+
+const player = (playerName, goldCount, heroList) => ({
+  playerName,
+  goldCount,
+  heroList
+});
+
+const playerList = [];
+
+const createPlayer = (event) => {
+  event.preventDefault();
+
+}
 // Heroes:
 /**
  * { name: string, attack: number from 1- 10, movement: number from 1 to 5, questing number 1 - 10, special: fn}
  */
-
-const MakeHero = (name, attack, movement, questing, special) => ({
+const MakeHero = (name, attack, movement, questing, cost, special) => ({
   name,
   attack,
   movement,
   questing,
+  cost,
   special
 });
-const CaoCao = MakeHero('Cao Cao', 8, 2, 1);
-const AlexanderTheGreat = MakeHero('Alexander The Great', 7, 4, 3);
+const CaoCao = MakeHero('Cao Cao', 8, 2, 1, 5);
+const AlexanderTheGreat = MakeHero('Alexander The Great', 7, 4, 3, 5);
 // Treasures
 
 // Questing Bosses
@@ -24,7 +38,6 @@ const AlexanderTheGreat = MakeHero('Alexander The Great', 7, 4, 3);
  * @param {*} name, Use Strings
  * @param {*} questPoints, Use Numbers
  * @param {*} treasure, Use Strings
- * @param {*} treasureEffect, function linked to treasure tab
  */
 const makeQuestBoss = (name, questPoints, treasureName) => ({
   name,
@@ -32,6 +45,17 @@ const makeQuestBoss = (name, questPoints, treasureName) => ({
   treasureName
 });
 const AzureDragon = makeQuestBoss('Azure Dragon', 9, 'Sword of Light');
+
+//Mechanics on Obtaining Hero
+
+const purchaseHero = (player, hero) => {
+  if (player.goldCount >= hero.cost) {
+    if (confirm("Purchase " + hero.name + "?")) {
+      console.log(hero.name + " has joined " + player.playerName);
+      player.heroList.push(hero);
+    } else(console.log(hero.name + " has not been purchased."))
+  } else(console.log("Insufficient Gold"))
+}
 
 //Battles
 /**
@@ -64,9 +88,7 @@ const bossRaid = (hero, boss) => {
   //the boss required point divide by the hero questing is the required turns to take the boss down;
   let StartingTurn = 0;
   for (
-    StartingTurn = 0;
-    StartingTurn < boss.questPoints / hero.questing;
-    StartingTurn++
+    StartingTurn = 0; StartingTurn < boss.questPoints / hero.questing; StartingTurn++
   ) {
     console.log(
       boss.questPoints / hero.questing - StartingTurn + ' Turn Remaining'
@@ -74,10 +96,10 @@ const bossRaid = (hero, boss) => {
   }
   console.log(
     boss.name +
-      ' has been defeated by ' +
-      hero.name +
-      '. ' +
-      boss.treasureName +
-      ' has been obtained.'
+    ' has been defeated by ' +
+    hero.name +
+    '. ' +
+    boss.treasureName +
+    ' has been obtained.'
   );
 };
