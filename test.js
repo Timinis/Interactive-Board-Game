@@ -6,9 +6,9 @@ function getRandomArbitrary(min, max) {
 
 const newPlayer = (playerName) => ({
   playerName,
-  goldCount : 20,
-  heroList : [],
-  treasureInventory : [],
+  goldCount: 20,
+  heroList: [],
+  treasureInventory: [],
 });
 
 const playerList = [];
@@ -86,9 +86,7 @@ const bossRaid = (hero, boss) => {
   //the boss required point divide by the hero questing is the required turns to take the boss down;
   let StartingTurn = 0;
   for (
-    StartingTurn = 0;
-    StartingTurn < boss.questPoints / hero.questing;
-    StartingTurn++
+    StartingTurn = 0; StartingTurn < boss.questPoints / hero.questing; StartingTurn++
   ) {
     console.log(
       boss.questPoints / hero.questing - StartingTurn + ' Turn Remaining'
@@ -96,10 +94,10 @@ const bossRaid = (hero, boss) => {
   }
   console.log(
     boss.name +
-      ' has been defeated by ' +
-      hero.name +
-      '. ' +
-      boss.treasureName +
-      ' has been obtained.'
+    ' has been defeated by ' +
+    hero.name +
+    '. ' +
+    boss.treasureName +
+    ' has been obtained.'
   );
 };
